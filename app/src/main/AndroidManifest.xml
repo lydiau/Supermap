@@ -22,9 +22,12 @@
         android:roundIcon="@drawable/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service android:name="com.amap.api.location.APSService" />
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="32e627b683288c564696494b3505417f" />
+            android:value="25c16b5af7279143f92620610c66659c" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -32,7 +35,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
 
-                <service android:name="com.amap.api.location.APSService" />
+
             </intent-filter>
         </activity>
     </application>

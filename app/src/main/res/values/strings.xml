@@ -1,4 +1,7 @@
 <resources>
+    <string name="starting_point">我的位置</string>
+    <string name="ending_point">输入终点</string>
+    <string name="search">搜索</string>
     <string name="app_name">My Application3</string>
     <string name="animate">Animate</string>
     <string name="basic_map">基本地图</string>

@@ -99,7 +99,7 @@ public class MainActivity extends Activity implements OnMapClickListener,
         registerListener();
         mRouteSearch = new RouteSearch(this);
         mRouteSearch.setRouteSearchListener(this);
-        mBottomLayout = (RelativeLayout) findViewById(R.id.bottom_layout);
+        //mBottomLayout = (RelativeLayout) findViewById(R.id.bottom_layout);
         mRotueTimeDes = (TextView) findViewById(R.id.firstline);
         mRouteDetailDes = (TextView) findViewById(R.id.secondline);
 

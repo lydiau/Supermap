@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="20dip"
     android:layout_marginTop="20dip"
-    android:textSize="15sp" >
+    android:backgroundTint="@color/white"
+    android:alpha="0.8"
+    android:textSize="14sp" >
 
 </TextView>

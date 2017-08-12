@@ -5,6 +5,12 @@ android {
         debug {
             storeFile file("/Users/admin/.android/debug.keystore")
         }
+        config {
+            keyAlias 'key0'
+            keyPassword 'android'
+            storeFile file('C:/Users/linyue/AndroidStudioProjects/Supermap/supermap.jks')
+            storePassword 'android'
+        }
     }
 
     compileSdkVersion 26
@@ -21,6 +27,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
 

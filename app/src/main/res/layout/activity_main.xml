@@ -4,72 +4,139 @@
     android:layout_height="match_parent"
     android:background="@color/act_background" >
 
+    <com.amap.api.maps2d.MapView
+        android:id="@+id/route_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.amap.api.maps2d.MapView>
+
     <RelativeLayout
         android:id="@+id/routemap_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/title_background" >
-        <LinearLayout
+        android:background="#d9FFFFFF"
+        android:focusableInTouchMode="true">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5.0dip"
-            android:id="@+id/linearLayout">
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginRight="@dimen/margin_right"
+            android:layout_marginTop="@dimen/margin_top"
+            android:orientation="vertical">
 
-            <AutoCompleteTextView
-                android:id="@+id/startpoint"
+            <LinearLayout
+                android:id="@+id/point_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/text_search"
-                android:completionThreshold="1"
-                android:dropDownVerticalOffset="1.0dip"
-                android:hint="请输入出发地"
-                android:textColorHint="@color/darkgrey"
-                android:imeOptions="actionDone"
-                android:inputType="text|textAutoComplete"
-                android:maxLength="20"
-                android:paddingRight="0dip"
-                android:singleLine="true"
-                android:textColor="#000000"
-                android:textSize="16.0sp" />
+                android:layout_alignParentTop="true"
+                android:divider="@drawable/divider_horizontal"
+                android:dividerPadding="5dp"
+                android:orientation="vertical">
 
-            <AutoCompleteTextView
-                android:id="@+id/endpoint"
-                android:layout_width="match_parent"
+                <RelativeLayout
+                    android:id="@+id/starting_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/startpoint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/home_dot"
+                        android:layout_marginRight="@dimen/home_search"
+                        android:background="#00000000"
+                        android:completionThreshold="1"
+                        android:hint="@string/starting_point"
+                        android:imeOptions="actionDone"
+                        android:inputType="text|textAutoComplete"
+                        android:lines="1"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray_lite"
+                        android:textSize="14.0sp" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/dot_pink" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1.0"
+                    android:background="@color/gray_lite"
+                    android:layout_marginLeft="@dimen/home_dot"
+                    android:layout_marginRight="@dimen/home_divider_right"/>
+
+                <RelativeLayout
+                    android:id="@+id/ending_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/endpoint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/home_dot"
+                        android:layout_marginRight="@dimen/home_search"
+                        android:background="#00000000"
+                        android:completionThreshold="1"
+                        android:hint="@string/ending_point"
+                        android:imeOptions="actionDone"
+                        android:inputType="text|textAutoComplete"
+                        android:lines="1"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray_lite"
+                        android:textSize="14.0sp" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/relativeLayout"
+                        android:src="@drawable/dot_green" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:completionThreshold="1"
-                android:dropDownVerticalOffset="1.0dip"
-                android:layout_marginLeft="5.0dip"
-                android:hint="请输入目的地"
-                android:textColorHint="@color/darkgrey"
-                android:background="@drawable/text_search"
-                android:imeOptions="actionDone"
-                android:inputType="text|textAutoComplete"
-                android:singleLine="true"
-                android:textColor="#000000"
-                android:textSize="16.0sp"/>
-        </LinearLayout>
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true">
 
-        <Button
-            android:id="@+id/searchButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/linearLayout"
-            android:layout_weight="1"
-            android:text="开始搜索" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1.0"
+                    android:background="@color/gray_lite"
+                    android:layout_marginTop="@dimen/home_divider_top"
+                    android:layout_marginBottom="@dimen/home_divider_bottom"/>
+
+                <ImageButton
+                    android:id="@+id/searchButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_press"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="@dimen/home_divider_top"/>
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
-
-    <RelativeLayout
+    <!--<RelativeLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:padding="5dp"
-        android:background="@drawable/bg_bottom_bar"
+        android:background="#d9FFFFFF"
         android:gravity="center_vertical"
         android:visibility="gone" >
 
@@ -78,9 +145,9 @@
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginLeft="12dp"
-            android:singleLine="true"
+            android:lines="1"
             android:textColor="#333333"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/secondline"
@@ -89,15 +156,15 @@
             android:layout_below="@+id/firstline"
             android:layout_marginLeft="12dp"
             android:gravity="right"
-            android:singleLine="true"
-            android:textColor="#999999"
-            android:textSize="13sp"
+            android:lines="1"
+            android:textColor="#333333"
+            android:textSize="14sp"
             android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/detail"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:orientation="horizontal"
@@ -108,7 +175,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="详情"
-                android:textColor="@color/blue"
+                android:textColor="@color/gary"
                 android:textSize="14sp" />
 
             <Button
@@ -118,17 +185,7 @@
                 android:background="@drawable/arrow_right_blue"
                 android:gravity="center_vertical" />
         </LinearLayout>
-    </RelativeLayout>
-
-    <com.amap.api.maps2d.MapView
-        android:id="@+id/route_map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottom_layout"
-        android:layout_below="@id/routemap_header" >
-
-    </com.amap.api.maps2d.MapView>
-
+    </RelativeLayout>-->
 
     <LinearLayout
         android:id="@+id/bus_result"
