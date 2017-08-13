@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.ColorSpace;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.RelativeLayout;
@@ -20,10 +23,13 @@ import com.amap.api.maps2d.AMap.OnInfoWindowClickListener;
 import com.amap.api.maps2d.AMap.OnMapClickListener;
 import com.amap.api.maps2d.AMap.OnMarkerClickListener;
 import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.model.BitmapDescriptor;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
+import com.amap.api.maps2d.model.Polyline;
+import com.amap.api.maps2d.model.PolylineOptions;
 import com.amap.api.maps2d.overlay.WalkRouteOverlay;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
@@ -58,6 +64,7 @@ public class MainActivity extends Activity implements OnMapClickListener,
     private LatLonPoint mStartPoint = new LatLonPoint(39.942295, 116.335891);//起点，116.335891,39.942295
     private LatLonPoint mEndPoint = new LatLonPoint(39.995576, 116.481288);//终点，116.481288,39.995576
     private final int ROUTE_TYPE_WALK = 3;
+    private ImageButton btnShow;
 
     private RelativeLayout mBottomLayout;
     private TextView mRotueTimeDes, mRouteDetailDes;
@@ -70,9 +77,11 @@ public class MainActivity extends Activity implements OnMapClickListener,
         setContentView(R.layout.activity_main);
         mContext = this.getApplicationContext();
         mapView = (MapView) findViewById(R.id.route_map);
+        String filePath = Environment.getExternalStorageDirectory().getPath() + "/custom_config";
         mapView.onCreate(bundle);// 此方法必须重写
         init();
         setfromandtoMarker();
+        setRoadPolyline();
         searchRouteResult(ROUTE_TYPE_WALK, RouteSearch.WalkDefault);
         startp = (AutoCompleteTextView) findViewById(R.id.startpoint);
         startp.addTextChangedListener(this);// 添加文本输入框监听事件
@@ -87,6 +96,18 @@ public class MainActivity extends Activity implements OnMapClickListener,
         aMap.addMarker(new MarkerOptions()
                 .position(AMapUtil.convertToLatLng(mEndPoint))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.end)));
+    }
+
+    private void setRoadPolyline(){
+        final Polyline polyline;
+        List<LatLng> latLngs = new ArrayList<LatLng>();
+        latLngs.add(new LatLng(39.999391,116.135972));
+        latLngs.add(new LatLng(39.898323,116.057694));
+        latLngs.add(new LatLng(39.900430,116.265061));
+        latLngs.add(new LatLng(38.955192,116.140092));
+        polyline = aMap.addPolyline(new PolylineOptions().
+                addAll(latLngs).width(50).color(999999));
+
     }
 
     /**
@@ -177,6 +198,46 @@ public class MainActivity extends Activity implements OnMapClickListener,
 
     }
 
+    public class RouteTool extends WalkRouteOverlay{
+        public int color;//路线颜色
+        public float lineWidth;//路线宽度
+        public RouteTool(Context context, AMap aMap, WalkPath walkPath, LatLonPoint latLonPoint, LatLonPoint latLonPoint1) {
+            super(context, aMap, walkPath, latLonPoint, latLonPoint1);
+        }
+        /*修改路线宽度*/
+        @Override
+        protected float getBuslineWidth() {
+            return lineWidth;
+        }
+        /*修改路线颜色*/
+        @Override
+        protected int getWalkColor() {
+            return color;
+        }
+        /* 修改终点marker样式，这里的R.drawable.none是我自己画的一个PNG图片，图片什么都看不到，而这么修改就等于是把这些marker都去掉了，只留下一条规划的路线，当然可以把BitmapDescriptor 的起点、终点等做成域封装起来供别的类修改，现在我比较懒，就用汉字说明就好了 */
+        @Override
+        protected BitmapDescriptor getEndBitmapDescriptor() {
+            BitmapDescriptor reBitmapDescriptor = new BitmapDescriptorFactory().fromResource(R.drawable.start_pink);
+            return reBitmapDescriptor;
+        }
+        /*修改起点marker样式*/
+        @Override
+        protected BitmapDescriptor getStartBitmapDescriptor() {
+            BitmapDescriptor reBitmapDescriptor = new BitmapDescriptorFactory().fromResource(R.drawable.end_green);
+            return reBitmapDescriptor;
+        }
+        /*修改中间点marker样式*/
+        @Override
+        protected BitmapDescriptor getWalkBitmapDescriptor() {
+            BitmapDescriptor reBitmapDescriptor=new BitmapDescriptorFactory().fromResource(R.drawable.dot);
+            return reBitmapDescriptor;
+        }
+        public void setView(int color,float width) {
+            this.color = color;
+            lineWidth = width;
+        }
+    }
+
     @Override
     public void onWalkRouteSearched(WalkRouteResult result, int errorCode) {
         dissmissProgressDialog();
@@ -187,10 +248,11 @@ public class MainActivity extends Activity implements OnMapClickListener,
                     mWalkRouteResult = result;
                     final WalkPath walkPath = mWalkRouteResult.getPaths()
                             .get(0);
-                    WalkRouteOverlay walkRouteOverlay = new WalkRouteOverlay(
+                    RouteTool walkRouteOverlay = new RouteTool(
                             this, aMap, walkPath,
                             mWalkRouteResult.getStartPos(),
                             mWalkRouteResult.getTargetPos());
+                    walkRouteOverlay.setView(0xff000000, 10);
                     walkRouteOverlay.removeFromMap();
                     walkRouteOverlay.addToMap();
                     walkRouteOverlay.zoomToSpan();
