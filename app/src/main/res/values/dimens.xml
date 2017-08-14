@@ -6,7 +6,7 @@
     <dimen name="poi_title_size">14sp</dimen>
     <dimen name="poi_field_size">14sp</dimen>
     <dimen name="margin_left">20dp</dimen>
-    <dimen name="margin_right">30dp</dimen>
+    <dimen name="margin_right">20dp</dimen>
     <dimen name="offset_title_left">5dp</dimen>
     <dimen name="detail_img_offset_top">8dp</dimen>
     <dimen name="index_offset">4dp</dimen>

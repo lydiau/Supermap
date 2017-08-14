@@ -46,6 +46,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/home_dot"
                         android:layout_marginRight="@dimen/home_search"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:background="#00000000"
                         android:completionThreshold="1"
                         android:hint="@string/starting_point"
@@ -54,7 +56,7 @@
                         android:lines="1"
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray_lite"
-                        android:textSize="14.0sp" />
+                        android:textSize="16.0sp" />
 
                     <ImageView
                         android:layout_width="24dp"
@@ -84,6 +86,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/home_dot"
                         android:layout_marginRight="@dimen/home_search"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:background="#00000000"
                         android:completionThreshold="1"
                         android:hint="@string/ending_point"
@@ -92,7 +96,7 @@
                         android:lines="1"
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray_lite"
-                        android:textSize="14.0sp" />
+                        android:textSize="16.0sp" />
 
                     <ImageView
                         android:layout_width="24dp"
