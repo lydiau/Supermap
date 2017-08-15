@@ -28,9 +28,12 @@ import com.amap.api.maps2d.AMapOptions;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.model.BitmapDescriptor;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.CircleOptions;
+import com.amap.api.maps2d.model.GroundOverlayOptions;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
+import com.amap.api.maps2d.model.PolygonOptions;
 import com.amap.api.maps2d.model.Polyline;
 import com.amap.api.maps2d.model.PolylineOptions;
 import com.amap.api.maps2d.overlay.WalkRouteOverlay;
@@ -347,43 +350,9 @@ public class MainActivity extends Activity implements OnMapClickListener,
                         }
                     }
                     latLngs.add(new LatLng(mEndPoint.getLatitude(), mEndPoint.getLongitude()));
-                    aMap.addPolyline(new PolylineOptions().addAll(latLngs).width(10).color(0xff000000));
-
-                    /*for(m = 0; m< latLngs.size()-2; m++){
-                        double rou;
-                        LatLng var1 = latLngs.get(m);
-                        LatLng var2 = latLngs.get(m+1);
-                        LatLng var3 = latLngs.get(m+2);
-                        rou = Math.acos((Math.pow(aMap.getProjection().toScreenLocation(var2).x, 2)
-                                - (aMap.getProjection().toScreenLocation(var1)).x
-                                + aMap.getProjection().toScreenLocation(var3).x)
-                                * aMap.getProjection().toScreenLocation(var2).x
-                                + aMap.getProjection().toScreenLocation(var1).x
-                                * aMap.getProjection().toScreenLocation(var3).x
-                                + Math.pow(aMap.getProjection().toScreenLocation(var2).y, 2)
-                                - (aMap.getProjection().toScreenLocation(var1).y
-                                + aMap.getProjection().toScreenLocation(var3).y)
-                                * aMap.getProjection().toScreenLocation(var2).y
-                                + aMap.getProjection().toScreenLocation(var1).y
-                                * aMap.getProjection().toScreenLocation(var3).y)
-                                / (Math.sqrt(Math.pow(aMap.getProjection().toScreenLocation(var2).x
-                                - aMap.getProjection().toScreenLocation(var1).x, 2)
-                                + Math.pow(aMap.getProjection().toScreenLocation(var2).y
-                                - aMap.getProjection().toScreenLocation(var1).x, 2))
-                                * (Math.sqrt(Math.pow(aMap.getProjection().toScreenLocation(var2).x
-                                - aMap.getProjection().toScreenLocation(var3).x, 2)
-                                + Math.pow(aMap.getProjection().toScreenLocation(var2).y
-                                - aMap.getProjection().toScreenLocation(var3).x, 2))));
-                        if (rou < Math.PI * 5 / 6) {
-                            aMap.addMarker((new MarkerOptions())
-                                    .position(var2)
-                                    .visible(true)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.turning_point)));
-                        }
-                    }*/
-
-
-                RouteTool walkRouteOverlay = new RouteTool(
+                    aMap.addPolyline(new PolylineOptions().addAll(latLngs).width(10).color(0xff000000).zIndex(2));
+                    aMap.addCircle(new CircleOptions().center(new LatLng(mStartPoint.getLatitude(), mStartPoint.getLongitude())).radius(100000).zIndex(1).fillColor(0xffffffff));
+                    RouteTool walkRouteOverlay = new RouteTool(
                         this, aMap, walkPath,
                         mWalkRouteResult.getStartPos(),
                         mWalkRouteResult.getTargetPos());
