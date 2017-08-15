@@ -36,6 +36,10 @@ import com.amap.api.maps2d.model.PolylineOptions;
 import com.amap.api.maps2d.overlay.WalkRouteOverlay;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeAddress;
+import com.amap.api.services.geocoder.RegeocodeQuery;
+import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
@@ -48,6 +52,7 @@ import com.amap.api.services.route.RouteSearch.WalkRouteQuery;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.amap.api.services.route.WalkStep;
+import com.example.administrator.myapplication3.Geocoder.GeocoderActivity;
 import com.example.administrator.myapplication3.R;
 import com.example.administrator.myapplication3.util.AMapUtil;
 import com.example.administrator.myapplication3.util.ToastUtil;
@@ -329,11 +334,11 @@ public class MainActivity extends Activity implements OnMapClickListener,
                                 if (rou > Math.PI * 5 / 6) {
                                     break;
                                 } else {
-                                   if (rou <= Math.PI * 90 / 180) {
-                                       aMap.addMarker((new MarkerOptions())
-                                               .position(new LatLng(kpoint_two.getLatitude(), kpoint_two.getLongitude()))
-                                               .visible(true)
-                                               .icon(BitmapDescriptorFactory.fromResource(R.drawable.turning_point)));
+                                    if ((rou <= Math.PI * 120 / 180) &&(j <= walkStep.getPolyline().size() - 30) ) {
+                                        aMap.addMarker((new MarkerOptions())
+                                                .position(new LatLng(kpoint_two.getLatitude(), kpoint_two.getLongitude()))
+                                                .visible(true)
+                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.turning_point)));
                                     }
                                     latLngs.add(new LatLng(kpoint_two.getLatitude(), kpoint_two.getLongitude()));
                                     break;

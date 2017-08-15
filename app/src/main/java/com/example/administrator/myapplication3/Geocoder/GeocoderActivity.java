@@ -15,14 +15,18 @@ import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.services.core.AMapException;
+import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.geocoder.GeocodeAddress;
 import com.amap.api.services.geocoder.GeocodeQuery;
 import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.GeocodeSearch.OnGeocodeSearchListener;
+import com.amap.api.services.geocoder.RegeocodeAddress;
+import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.example.administrator.myapplication3.R;
 import com.example.administrator.myapplication3.util.AMapUtil;
@@ -165,13 +169,22 @@ public class GeocoderActivity extends Activity implements
         }
     }
 
+/*    private void getAddressByLatlng(LatLng latLng) {
+        //逆地理编码查询条件：逆地理编码查询的地理坐标点、查询范围、坐标类型。
+        LatLonPoint latLonPoint = new LatLonPoint(latLng.latitude, latLng.longitude);
+        RegeocodeQuery query = new RegeocodeQuery(latLonPoint, 200, GeocodeSearch.AMAP);
+        //异步查询
+        geocoderSearch.getFromLocationAsyn(query);
+    }*/
+
     /**
      * 逆地理编码回调
      */
     @Override
-    public void onRegeocodeSearched(RegeocodeResult result, int rCode) {
-
+    public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
     }
+
+
 
     @Override
     public void onClick(View v) {
